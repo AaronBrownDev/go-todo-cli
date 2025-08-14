@@ -53,7 +53,20 @@ func NewJsonRepository() Storage {
 
 // Save implements Storage.
 func (j *jsonRepository) Save(todo *todo.Todo) error {
-	panic("unimplemented")
+	todoList = append(todoList, *todo)
+
+	updatedBytes, err := json.MarshalIndent(todoList, "", " ")
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	if err = os.WriteFile(jsonPath, updatedBytes, 0600); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	return nil
 }
 
 // Get implements Storage.
