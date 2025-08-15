@@ -71,7 +71,13 @@ func (j *jsonRepository) Save(todo *todo.Todo) error {
 
 // Get implements Storage.
 func (j *jsonRepository) Get(id string) (*todo.Todo, error) {
-	panic("unimplemented")
+	for _, val := range todoList { // TODO might swap to hashmap or something else to optimize
+		if val.ID == id {
+			return &val, nil
+		}
+	}
+
+	return nil, fmt.Errorf("no todo found") // TODO might want to create error variables
 }
 
 // Update implements Storage.
