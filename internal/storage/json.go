@@ -80,6 +80,11 @@ func (j *JsonRepository) Get(id string) (*todo.Todo, error) {
 	return nil, fmt.Errorf("no todo found") // TODO might want to create error variables
 }
 
+// List implements Storage.
+func (j *JsonRepository) List(filters ...FilterFunc) ([]*todo.Todo, error) {
+	panic("unimplemented")
+}
+
 // Update implements Storage.
 func (j *JsonRepository) Update(id string, todo *todo.Todo) error {
 	panic("unimplemented")
