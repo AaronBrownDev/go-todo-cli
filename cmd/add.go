@@ -1,12 +1,14 @@
 /*
 Copyright © 2025 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
 	"fmt"
+	"log"
+	"time"
 
+	"github.com/AaronBrownDev/go-todo-cli/internal/todo"
 	"github.com/spf13/cobra"
 )
 
@@ -22,10 +24,50 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("add called")
+
+		title, err := cmd.Flags().GetString("title")
+		if err != nil {
+			log.Fatalln(err)
+		}
+		description, err := cmd.Flags().GetString("desc")
+		if err != nil {
+			log.Fatalln(err)
+		}
+		priority, err := cmd.Flags().GetString("priority")
+		if err != nil {
+			log.Fatalln(err)
+		}
+		category, err := cmd.Flags().GetString("category")
+		if err != nil {
+			log.Fatalln(err)
+		}
+		due, err := cmd.Flags().GetTime("due")
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		jsonRepo.Save(&todo.Todo{
+			ID:          "0",
+			Title:       title,
+			Description: description,
+			Priority:    todo.Priority(priority),
+			Category:    category,
+			DueDate:     due,
+			Completed:   false,
+			CreatedAt:   time.Now(),
+			UpdatedAt:   time.Time{},
+		})
+
 	},
 }
 
 func init() {
+	addCmd.Flags().String("title", "", "")
+	addCmd.Flags().String("desc", "", "")
+	addCmd.Flags().String("priority", "", "")
+	addCmd.Flags().String("category", "", "")
+	addCmd.Flags().Time("due", time.Time{}, []string{}, "")
+
 	rootCmd.AddCommand(addCmd)
 
 	// Here you will define your flags and configuration settings.
