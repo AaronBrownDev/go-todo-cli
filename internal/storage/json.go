@@ -43,16 +43,16 @@ func init() {
 	}
 }
 
-type jsonRepository struct {
+type JsonRepository struct {
 	// TODO
 }
 
 func NewJsonRepository() Storage {
-	return &jsonRepository{}
+	return &JsonRepository{}
 }
 
 // Save implements Storage.
-func (j *jsonRepository) Save(todo *todo.Todo) error {
+func (j *JsonRepository) Save(todo *todo.Todo) error {
 	todoList = append(todoList, *todo)
 
 	updatedBytes, err := json.MarshalIndent(todoList, "", " ")
@@ -70,7 +70,7 @@ func (j *jsonRepository) Save(todo *todo.Todo) error {
 }
 
 // Get implements Storage.
-func (j *jsonRepository) Get(id string) (*todo.Todo, error) {
+func (j *JsonRepository) Get(id string) (*todo.Todo, error) {
 	for _, val := range todoList { // TODO might swap to hashmap or something else to optimize
 		if val.ID == id {
 			return &val, nil
@@ -81,11 +81,11 @@ func (j *jsonRepository) Get(id string) (*todo.Todo, error) {
 }
 
 // Update implements Storage.
-func (j *jsonRepository) Update(id string, todo *todo.Todo) error {
+func (j *JsonRepository) Update(id string, todo *todo.Todo) error {
 	panic("unimplemented")
 }
 
 // Delete implements Storage.
-func (j *jsonRepository) Delete(id string) error {
+func (j *JsonRepository) Delete(id string) error {
 	panic("unimplemented")
 }
