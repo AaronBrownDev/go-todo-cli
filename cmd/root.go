@@ -1,16 +1,16 @@
 /*
 Copyright © 2025 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
 	"os"
 
+	"github.com/AaronBrownDev/go-todo-cli/internal/storage"
 	"github.com/spf13/cobra"
 )
 
-
+var jsonRepo storage.Storage = storage.NewJsonRepository()
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
