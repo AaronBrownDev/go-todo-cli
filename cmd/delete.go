@@ -1,11 +1,11 @@
 /*
 Copyright © 2025 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/spf13/cobra"
 )
@@ -22,12 +22,23 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("delete called")
+
+		id, err := cmd.Flags().GetString("id")
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		err = jsonRepo.Delete(id)
+		if err != nil {
+			log.Fatalln(err)
+		}
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(deleteCmd)
+	deleteCmd.Flags().String("id", "", "")
 
+	rootCmd.AddCommand(deleteCmd)
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
