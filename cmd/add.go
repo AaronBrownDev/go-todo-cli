@@ -46,7 +46,7 @@ to quickly create a Cobra application.`,
 			log.Fatalln(err)
 		}
 
-		jsonRepo.Save(&todo.Todo{
+		err = jsonRepo.Save(&todo.Todo{
 			ID:          "0",
 			Title:       title,
 			Description: description,
@@ -57,6 +57,9 @@ to quickly create a Cobra application.`,
 			CreatedAt:   time.Now(),
 			UpdatedAt:   time.Time{},
 		})
+		if err != nil {
+			log.Fatalln(err)
+		}
 
 	},
 }
