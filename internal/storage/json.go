@@ -76,7 +76,14 @@ func (j *JsonRepository) List(filters ...FilterFunc) ([]*todo.Todo, error) {
 
 // Update implements Storage.
 func (j *JsonRepository) Update(id string, todo *todo.Todo) error {
-	panic("unimplemented")
+	for i, val := range todoList {
+		if val.ID == id {
+			todoList[i] = *todo
+			return updateFile()
+		}
+	}
+
+	return fmt.Errorf("no todo found")
 }
 
 // Delete implements Storage.
@@ -90,7 +97,6 @@ func (j *JsonRepository) Delete(id string) error {
 
 	return fmt.Errorf("no todo found")
 }
-
 
 // updateFile is a helper function for saving the file with the updated todoList
 func updateFile() error {
